@@ -1,0 +1,48 @@
+verticies:
+  - users
+  - customer_user
+  - customers
+  - projects
+  - customer_user2
+  - customer_user_group_user
+
+arcs:
+
+  -
+    source: users
+    destination: customer_user
+    link: "users.id = customer_user.user_id"
+
+  -
+    source: customer_user
+    destination: customers
+    link: "customer_user.customer_id = customers.id"
+
+  -
+    source: users
+    destination: projects
+    link: "users.id = projects.user_id"
+
+  -
+    source: customer_user2
+    destination: customer_user
+    link: "customer_user.user_id = customer_user2.user_id AND customer_user.customer_id = customer_user2.customer_id"
+
+  - source: customer_user_group_user
+    destination: users
+    link: "customer_user_group_user.user_id = users.id"
+
+  - source: projects
+    destination: customers
+    link: "projects.customer_id = customers.id"
+
+aliases:
+
+  owners:
+    canon: users
+    alias: owners
+    links: [projects]
+
+  user_families:
+    canon: customer_user_group_user
+    alias: user_family
