@@ -1,0 +1,18 @@
+schema:
+
+  verticies:
+  - users
+  - cities
+  
+  arcs:
+  
+  - source: users
+    destination: cities
+    link: "users.city_id = cities.id"
+
+aliases:
+
+in:
+- users
+
+want: "users"

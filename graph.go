@@ -32,23 +32,28 @@ func NewGraph(s *Schema) (*Graph, error) {
 
 // shortest returns the shortest path between from and to.
 func (g *Graph) shortest(from, to string) ([]string, error) {
-	src, _ := g.graph.GetMapping(from)
-	dst, _ := g.graph.GetMapping(to)
-	p, err := g.graph.Shortest(src, dst)
-	if err != nil {
-		return nil, fmt.Errorf("no path between %s and %s", from, to)
-	}
-	path := make([]string, 0, len(p.Path))
-	for _, arc := range p.Path {
-		name, _ := g.graph.GetMapped(arc)
-		path = append(path, name)
+	path := []string{from}
+	if from != to && to != "" {
+		src, _ := g.graph.GetMapping(from)
+		dst, _ := g.graph.GetMapping(to)
+		p, err := g.graph.Shortest(src, dst)
+		if err != nil {
+			return nil, fmt.Errorf("no path between %s and %s", from, to)
+		}
+		path = make([]string, 0, len(p.Path))
+		for _, arc := range p.Path {
+			name, _ := g.graph.GetMapped(arc)
+			path = append(path, name)
+		}
+	} else {
+		fmt.Println(from, path)
 	}
 
 	table := path[0]
 	if alias, ok := g.schema.aliases[table]; ok {
 		table = alias + " AS " + table
 	}
-	out := make([]string, 0, len(p.Path))
+	out := make([]string, 0, len(path))
 	out = append(out, table)
 	for i := 0; i < len(path)-1; i++ {
 		v1, v2 := path[i], path[i+1]
@@ -75,10 +80,10 @@ func (g *Graph) shortest(from, to string) ([]string, error) {
 func (g *Graph) From(src string, dst ...string) (string, error) {
 	out := make([]string, 0, 2*len(g.schema.Verticies)-1)
 	indexes := make(map[string]struct{})
+	if len(dst) == 0 {
+		dst = append(dst, src)
+	}
 	for _, to := range dst {
-		if to == src {
-			continue
-		}
 		path, err := g.shortest(src, to)
 		if err != nil {
 			return "", err

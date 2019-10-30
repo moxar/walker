@@ -1,0 +1,25 @@
+schema:
+
+  verticies:
+  - users
+  - cities
+  - countries
+  
+  arcs:
+  
+  - source: users
+    destination: cities
+    link: "users.city_id = cities.id"
+
+  - source: countries
+    destination: cities
+    link: "countries.id = cities.country_id"
+
+aliases:
+
+in:
+- cities
+- users
+- countries
+
+want: "cities JOIN users ON users.city_id = cities.id JOIN countries ON countries.id = cities.country_id"

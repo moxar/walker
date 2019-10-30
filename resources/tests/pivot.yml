@@ -1,0 +1,24 @@
+schema:
+
+  verticies:
+  - langs 
+  - countries
+  - country_lang
+  
+  arcs:
+  
+  - source: langs 
+    destination: country_lang
+    link: "langs.id = country_lang.lang_id"
+
+  - source: countries 
+    destination: country_lang
+    link: "countries.id = country_lang.country_id"
+
+aliases:
+
+in:
+- langs
+- countries
+
+want: "langs JOIN country_lang ON langs.id = country_lang.lang_id JOIN countries ON countries.id = country_lang.country_id"
