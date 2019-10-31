@@ -10,7 +10,7 @@ Checkout [test file](./graph_test.go) and the [test samples](./resources/tests) 
 ## Features
 
 The package builds the `FROM ... JOIN` clause of a SQL query based on the required tables. It needs a schema declaration, that can be hardcoded or fetched from the db (see mysql package).
-- Path between tables is established with Dijkstra's algorythm - [Ryan Carrier's implementation](github.com/RyanCarrier/dijkstra)
+- Path between tables is established with Dijkstra's algorythm - [Ryan Carrier's implementation](https://github.com/RyanCarrier/dijkstra)
 - Table and relation aliasing supported
 
 ## MySQL
