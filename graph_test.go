@@ -20,6 +20,7 @@ type Case struct {
 	Aliases []Alias
 	In      []string
 	Want    string
+	Err     string
 }
 
 func TestGraph_From(t *testing.T) {
@@ -63,8 +64,10 @@ func TestGraph_From(t *testing.T) {
 				return
 			}
 			got, err := g.From(c.In[0], c.In[1:]...)
-			if err != nil {
-				t.Error(err)
+			if (c.Err == "") != (err == nil) || err != nil && err.Error() != c.Err {
+				t.Log("want err:", c.Err)
+				t.Log("got err: ", err)
+				t.Fail()
 				return
 			}
 

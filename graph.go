@@ -34,8 +34,14 @@ func NewGraph(s *Schema) (*Graph, error) {
 func (g *Graph) shortest(from, to string) ([]string, error) {
 	path := []string{from}
 	if from != to && to != "" {
-		src, _ := g.graph.GetMapping(from)
-		dst, _ := g.graph.GetMapping(to)
+		src, err := g.graph.GetMapping(from)
+		if err != nil {
+			return nil, fmt.Errorf("no path between %s and %s", from, to)
+		}
+		dst, err := g.graph.GetMapping(to)
+		if err != nil {
+			return nil, fmt.Errorf("no path between %s and %s", from, to)
+		}
 		p, err := g.graph.Shortest(src, dst)
 		if err != nil {
 			return nil, fmt.Errorf("no path between %s and %s", from, to)
@@ -45,8 +51,6 @@ func (g *Graph) shortest(from, to string) ([]string, error) {
 			name, _ := g.graph.GetMapped(arc)
 			path = append(path, name)
 		}
-	} else {
-		fmt.Println(from, path)
 	}
 
 	table := path[0]

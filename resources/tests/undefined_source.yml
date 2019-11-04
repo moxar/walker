@@ -1,0 +1,20 @@
+schema:
+
+  verticies:
+  - users
+  - cities
+
+  arcs:
+
+  - source: users
+    destination: cities
+    link: "users.city_id = cities.id"
+
+aliases:
+
+in:
+- projects
+- users
+
+want: ""
+err: "no path between projects and users"
