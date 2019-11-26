@@ -1,6 +1,6 @@
 module github.com/moxar/walker
 
-go 1.12
+go 1.13
 
 require (
 	github.com/RyanCarrier/dijkstra v1.0.0

@@ -36,15 +36,15 @@ func (g *Graph) shortest(from, to string) ([]string, error) {
 	if from != to && to != "" {
 		src, err := g.graph.GetMapping(from)
 		if err != nil {
-			return nil, fmt.Errorf("no path between %s and %s", from, to)
+			return nil, &PathError{Src: from, Dst: to, error: err}
 		}
 		dst, err := g.graph.GetMapping(to)
 		if err != nil {
-			return nil, fmt.Errorf("no path between %s and %s", from, to)
+			return nil, &PathError{Src: from, Dst: to, error: err}
 		}
 		p, err := g.graph.Shortest(src, dst)
 		if err != nil {
-			return nil, fmt.Errorf("no path between %s and %s", from, to)
+			return nil, &PathError{Src: from, Dst: to, error: err}
 		}
 		path = make([]string, 0, len(p.Path))
 		for _, arc := range p.Path {
