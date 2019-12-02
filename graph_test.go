@@ -53,11 +53,7 @@ func TestGraph_From(t *testing.T) {
 				c.Schema.Alias(al.Canon, al.Alias, al.Links...)
 			}
 
-			g, err := walker.NewGraph(c.Schema)
-			if err != nil {
-				t.Error(err)
-				return
-			}
+			g := walker.NewGraph(c.Schema)
 
 			if len(c.In) == 0 {
 				t.Error(`empty input field "In"`)

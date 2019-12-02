@@ -17,4 +17,4 @@ in:
 - projects
 
 want: ""
-err: "no path between [users] and [projects]: projects not found in mapping"
+err: "no path between [users] and [projects]"
