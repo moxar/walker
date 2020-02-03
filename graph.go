@@ -54,7 +54,7 @@ func (g *Graph) shortest(from, to string) ([]string, error) {
 		return nil, &PathError{Src: from, Dst: to}
 	}
 
-	pathers, _, ok := astar.Path(f, t)
+	pathers, _, ok := astar.Path(t, f)
 	if !ok {
 		return nil, &PathError{Src: from, Dst: to}
 	}
@@ -64,11 +64,6 @@ func (g *Graph) shortest(from, to string) ([]string, error) {
 		path = append(path, p.Vertex)
 	}
 
-	// astar sometimes messes up with the vertcies order. We don't realy care about them, except
-	// the first one that must be the "main" table.
-	if path[0] != from {
-		path[0], path[len(path)-1] = path[len(path)-1], path[0]
-	}
 	return path, nil
 }
 
