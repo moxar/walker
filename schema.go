@@ -33,6 +33,9 @@ type Arc struct {
 
 	// Link expresses the relation between the source and destination.
 	Link string
+
+	// Weight of the arc. A higher weight means a higher priority
+	Weight uint
 }
 
 // Alias the canonical table into the alias on the given links. If no link is provided, all relations are aliased.

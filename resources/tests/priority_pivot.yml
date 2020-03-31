@@ -1,0 +1,49 @@
+schema:
+
+  verticies:
+  - a
+  - b
+  - c
+  - d
+  - e
+  - bcd
+
+  arcs:
+
+  - source: a
+    destination: b
+    link: "a.b = b.a"
+    weight: 10
+
+  - source: b
+    destination: c
+    link: "b.c = c.b"
+    weight: 10
+
+  - source: c
+    destination: d
+    link: "c.d = d.c"
+    weight: 10
+
+  - source: d
+    destination: e
+    link: "d.e = e.d"
+    weight: 10
+
+  - source: a
+    destination: bcd
+    link: "a.bcd = bcd.a"
+    weight: 1
+
+  - source: bcd
+    destination: e
+    link: "bcd.e = e.bcd"
+    weight: 1
+
+aliases:
+
+in:
+- a
+- e
+
+want: "a JOIN b ON a.b = b.a JOIN c ON b.c = c.b JOIN d ON c.d = d.c JOIN e ON d.e = e.d"

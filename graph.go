@@ -21,7 +21,7 @@ func NewGraph(s *Schema) *Graph {
 	g.schema = s
 
 	for _, v := range s.Verticies {
-		g.pathers[v] = &pather{Vertex: v}
+		g.pathers[v] = &pather{Vertex: v, Distances: make(map[astar.Pather]uint)}
 	}
 
 	for _, p := range g.pathers {
@@ -37,6 +37,7 @@ func NewGraph(s *Schema) *Graph {
 				continue
 			}
 			p.Neighbors = append(p.Neighbors, g.pathers[v])
+			p.Distances[g.pathers[v]] = a.Weight
 		}
 	}
 
